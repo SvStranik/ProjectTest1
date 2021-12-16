@@ -6,3 +6,33 @@ telnet localhost 8080
 
 GET /?key=value&another_key=another_value HTTP/1.1
 Host: hexlet.local
+
+
+Используя telnet авторизуйтесь на hexlet.local (расположен на localhost:8080). 
+Параметры запроса: глагол GET, страница /admin, протокол HTTP 1.1, 
+имя пользователя Aladdin, пароль open sesame;
+Запишите ваш HTTP-запрос в файл solution;
+
+Подсказка
+Для кодирования логина и пароля используйте следующую команду в терминале: 
+printf 'Aladdin:open sesame' | base64 
+# выводит кодированную строку имя/пароль QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+
+GET /admin HTTP/1.1
+Host: hexlet.local
+Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+
+Используя telnet выполните запрос к hexlet.local (расположен на localhost) на порт 8080.
+Параметры запроса: глагол GET, страница /account, протокол HTTP 1.1, 
+куки name со значением user и secret со значением secret_hash;
+
+GET /account HTTP/1.1
+Host: hexlet.local
+Cookie: name=user; secret=secret_hash
+
+Используя telnet выполните запрос к hexlet.local (расположен на localhost)
+на порт 8080. Параметры запроса: глагол GET, страница /stream, протокол HTTP 1.1;
+Запишите ваш HTTP-запрос в файл solution;
+
+GET /stream HTTP/1.1
+Host: hexlet.local
