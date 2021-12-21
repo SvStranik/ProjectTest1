@@ -1,0 +1,99 @@
+###################################################################################################################################
+#task2
+
+src/app.py
+
+Добавьте два обработчика:
+
+    /phones - возвращает список телефонов содержащихся в переменной phones закодированный в json.
+    /domains - возвращает список доменов содержащихся в переменной domains закодированный в json.
+
+Подсказки
+
+    Сериализация данных в json и формирование объекта Response: flask.json.jsonify()
+
+from faker import Faker
+from flask import Flask, jsonify
+
+fake = Faker()
+fake.seed_instance(1234)
+
+domains = [fake.domain_name() for i in range(10)]
+phones = [fake.phone_number() for i in range(10)]
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return 'go to the /phones or /domains'
+
+
+@app.route('/phones')
+def get_phones():
+    return jsonify(phones)
+
+
+@app.route('/domains')
+def get_domains():
+    return jsonify(domains)
+
+###################################################################################################################################
+#task3
+src/app.py
+Реализуйте маршрут /companies/<id>, по которому отдается json представление компании. Компания извлекается из списка companies. 
+Каждая компания представлена словарём у которого есть числовой (то есть тип данных - число) ключ id:
+Пример
+# Гипотетический пример показывающий структуру
+companies = [
+  {
+    'id': 4,
+    # другие элементы словаря
+  },
+  {
+    'id': 2,
+    # другие элементы словаря
+  },
+  {
+    'id': 8,
+    # другие элементы словаря
+  },
+
+]
+
+Если компания с таким идентификатором не существует, то сайт должен вернуть ошибку 404 (страница с HTTP кодом 404) и текстом Page not found.
+Подсказки
+
+Для указания статуса ответа обработчик должен возвращать кортеж, первое значение которого тело ответа, а второе значение - статус ответа. 
+Подробнее об ответах.
+
+from flask import Flask, jsonify
+from data import generate_companies
+
+companies = generate_companies(100)
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return 'open something like (you can change id): /companies/5'
+
+
+# Вариант 1
+@app.route('/companies/<int:id>')
+def get_company(id):
+    filtered_companies = filter(lambda company: company['id'] == id, companies)
+    company = next(filtered_companies, None)
+
+    if company is None:
+        return 'Page not found', 404
+
+    return jsonify(company)
+# Вариант 2
+@app.route('/companies/<int:id>')
+def get_company(id):
+    for company in companies:
+        if company['id'] == id:
+            return jsonify(company)
+    return 'Page not found', 404
