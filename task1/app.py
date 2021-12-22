@@ -17,9 +17,10 @@ def get_users():
     return render_template('users/index.html', users=users)
 
 
-@app.route('/users/<first_name>')
-def get_first_name(first_name):
-    user = [user for user in users if user["first_name"] == first_name]
-    if not user: return 'Page not found', 404
+@app.route('/users/<int:id>')
+def get_first_name(id):
+    user = [user for user in users if user["id"] == id]
+    if user == []:
+        return ('Page not found', 404)
     return render_template('users/show.html', user=user[0])
 # END

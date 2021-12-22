@@ -1,0 +1,41 @@
+############################################# app.py
+# BEGIN
+@app.route('/users/<int:id>')
+def get_user(id):
+    filtered_users = filter(lambda user: user['id'] == id, users)
+    user = next(filtered_users, None)
+
+    if user is None:
+        return 'Page not found', 404
+
+    return render_template('users/show.html', user=user)
+
+
+@app.route('/users')
+def get_users():
+    return render_template('users/index.html', users=users)
+# END
+
+############################################# index.html
+<!-- BEGIN -->
+    <table>
+    {% for user in users %}
+      <tr>
+        <td>
+          {{ user['id'] }}
+        </td>
+        <td>
+          <a href="/users/{{ user['id'] }}">{{ user['first_name'] }}</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
+    <!-- END -->
+############################################# show.html
+ <!-- BEGIN -->
+    {% for key, value in user.items() %}
+      <div>
+        {{ key }}: {{ value }}
+      </div>
+    {% endfor %}
+    <!-- END -->
