@@ -9,7 +9,7 @@
       <tr>
         {% for user in users %}
         <td>{{user.get("id")}}</td>
-        <td><a href="users/{{user.get("first_name")}}"> {{user.get("first_name")}} </a></td>
+        <td><a href="users/{{user.get("id")}}"> {{user.get("first_name")}} </a></td>
         {% endfor %}
       </tr>
     </table>
