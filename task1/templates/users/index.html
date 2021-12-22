@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Example application</title>
+  </head>
+  <body>
+    <!-- BEGIN (write your solution here) -->
+    <table> 
+      <tr>
+        {% for user in users %}
+        <td>{{user.get("id")}}</td>
+        <td><a href="users/{{user.get("first_name")}}"> {{user.get("first_name")}} </a></td>
+        {% endfor %}
+      </tr>
+    </table>
+    <!-- END -->
+  </body>
+</html>
+

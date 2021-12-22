@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Example application</title>
+  </head>
+  <body>
+    <h1> {{username}} </h1>
+    <a href="/users">Пользователи</a>
+    <!-- BEGIN (write your solution here) -->
+    <table>
+      <tr>
+        <td>email:</td>
+        <td>{{user.get("email")}}</td>
+      </tr>
+      <tr>
+      <td>first_name:</td> 
+      <td>{{user.get("first_name")}}</td>
+      </tr>
+      <tr>
+        <td>id:</td>
+        <td>{{user.get("id")}}</td>
+      </tr>
+      <tr>
+        <td>last_name:</td>
+        <td>{{user.get("last_name")}}</td>
+      </tr>
+    </table>
+    <!-- END -->
+  </body>
+</html>
