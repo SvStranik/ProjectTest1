@@ -1,0 +1,24 @@
+# BEGIN
+@app.route('/users/create', methods=['GET'])
+def create_user_form():
+    return render_template('users/create.html', users=users)
+
+
+@app.route('/users', methods=['POST'])
+def create_user():
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+
+    if (first_name == ''):
+        return "First name can't be blank", 422
+
+    if (last_name == ''):
+        return "Last name can't be blank", 422
+
+    users.append({
+        'first_name': first_name,
+        'last_name': last_name,
+    })
+
+    return redirect('/users')
+# END
